@@ -21,10 +21,17 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: '2.x'
+
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.version }}
           cache: 'yarn'
+
+      - name: Install libs
+        run: |
+          sudo apt-get update
+          sudo apt-get install git cmake g++ python libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
+
       - name: Install deps
         run: yarn install --frozen-lockfile
         env:
