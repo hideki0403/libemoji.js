@@ -54,7 +54,7 @@ jobs:
         run: yarn run setup:native-configure
 
       - run: yarn run build
-      - run: yarn run prebuild
+      - run: yarn run pre-build
       - run: yarn run upload
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -56,8 +56,9 @@
   ],
   "scripts": {
     "install": "node ./scripts/skip-prebuild.js || prebuild-install --runtime napi",
+    "build": "yarn run build:native && yarn run build:gyp && yarn run build:ts",
     "rebuild": "node-gyp rebuild",
-    "prebuild": "prebuild --runtime napi --all --strip --verbose",
+    "pre-build": "prebuild --runtime napi --all --strip --verbose",
     "upload": "prebuild --runtime napi --upload ${GITHUB_TOKEN}",
     "setup:submodules": "git submodule update --init --recursive",
     "setup:native-configure": "node-gyp configure",
@@ -73,7 +74,6 @@
     "build:native": "sh ./scripts/setup-libemoji.sh",
     "build:gyp": "node-gyp build",
     "build:ts": "tsc",
-    "build": "yarn run build:native && yarn run build:gyp && yarn run build:ts",
     "start": "ts-node example",
     "clean": "node-gyp clean",
     "test:ts": "jest ./__tests__/lib/**.ts",
