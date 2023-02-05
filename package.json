@@ -73,7 +73,7 @@
     "build:native": "sh ./scripts/setup-libemoji.sh",
     "build:gyp": "node-gyp build",
     "build:ts": "tsc",
-    "build": "npm-run-all build:*",
+    "build": "yarn run build:native && yarn run build:gyp && yarn run build:ts",
     "start": "ts-node example",
     "clean": "node-gyp clean",
     "test:ts": "jest ./__tests__/lib/**.ts",
