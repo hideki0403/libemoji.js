@@ -1,29 +1,30 @@
-name: Publish to npm
+name: build
 
 on:
+  workflow_dispatch:
   release:
     types: [published]
 
 jobs:
   publish:
     timeout-minutes: 60
-    runs-on: ubuntu-latest
+    name: ${{ matrix.os }} - Node.js ${{ matrix.version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [14, 16, 18]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-python@v2
         with:
           python-version: '2.x'
-      - uses: actions/setup-node@v2.5.1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: ${{ matrix.version }}
           cache: 'yarn'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@nzws'
-          always-auth: true
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Install deps
         run: yarn install --frozen-lockfile
         env:
@@ -48,6 +49,3 @@ jobs:
       - run: yarn upload
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
