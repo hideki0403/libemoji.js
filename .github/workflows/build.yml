@@ -49,12 +49,12 @@ jobs:
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
 
       - if: steps.submodule_cache.outputs.cache-hit != 'true'
-        run: yarn setup
+        run: yarn run setup
       - if: steps.submodule_cache.outputs.cache-hit == 'true'
-        run: yarn setup:native-configure
+        run: yarn run setup:native-configure
 
-      - run: yarn build
-      - run: yarn prebuild
-      - run: yarn upload
+      - run: yarn run build
+      - run: yarn run prebuild
+      - run: yarn run upload
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
