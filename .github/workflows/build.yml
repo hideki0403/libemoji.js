@@ -27,10 +27,11 @@ jobs:
           node-version: ${{ matrix.version }}
           cache: 'yarn'
 
-      - name: Install libs
+      - name: Install libs (Ubuntu)
+        if: contains(matrix.container, 'ubuntu')
         run: |
           sudo apt-get update
-          sudo apt-get install git cmake g++ python2 libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
+          sudo apt-get install git cmake g++ nodejs python2 libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 
       - name: Install deps
         run: yarn install --frozen-lockfile
