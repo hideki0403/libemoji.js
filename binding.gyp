@@ -5,7 +5,7 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
-        "-L../externals/libemoji/lib",
+        "-L../externals/libemoji/include",
         "-lemoji",
         "-ldl",
         "-lfontconfig",
@@ -20,7 +20,6 @@
         "./externals/libemoji/include"
       ],
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS', "NAPI_VERSION=<(napi_build_version)" ],
-      'libraries': ['./externals/libemoji/include/emoji.a'],
     }
   ]
 }
