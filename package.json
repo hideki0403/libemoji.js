@@ -70,7 +70,7 @@
   "format": "npm-run-all -p format:*",
   "format:prettier": "prettier --write .",
   "format:cpp": "clang-format -i src/**.cpp",
-  "build:native": "sh ./scripts/setup-libemoji.sh",
+  "build:native": "bash ./scripts/setup-libemoji.sh",
   "build:gyp": "node-gyp build",
   "build:ts": "tsc",
   "build": "npm-run-all build:*",
