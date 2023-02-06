@@ -34,6 +34,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 
+      - name: Add msbuild to PATH (Windows)
+        if: contains(matrix.os, 'windows')
+        uses: microsoft/setup-msbuild@v1.0.2
+
       - name: Install deps
         run: yarn install --frozen-lockfile
         env:
