@@ -34,12 +34,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 
-      - name: Install libs (Windows)
-        if: contains(matrix.os, 'windows')
-        uses: KyleMayes/install-llvm-action@v1.7.0
-        with:
-          version: '3'
-
       - name: Install deps
         run: yarn install --frozen-lockfile
         env:
