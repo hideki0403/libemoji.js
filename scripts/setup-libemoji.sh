@@ -12,4 +12,6 @@ else
   msbuild.exe emoji.sln
 fi
 
+ls ./tmp
+
 cd ../../
