@@ -56,7 +56,7 @@
   ],
   "scripts": {
     "install": "node ./scripts/skip-prebuild.js || prebuild-install --runtime napi",
-    "build": "yarn run build:native && yarn run build:gyp && yarn run build:ts",
+    "build": "yarn run build:gyp && yarn run build:ts",
     "rebuild": "node-gyp rebuild",
     "pre-build": "prebuild --runtime napi --all --strip --verbose",
     "upload": "prebuild --runtime napi --upload ${GITHUB_TOKEN}",
@@ -71,7 +71,6 @@
     "format": "npm-run-all -p format:*",
     "format:prettier": "prettier --write .",
     "format:cpp": "clang-format -i src/**.cpp",
-    "build:native": "sh ./scripts/setup-libemoji.sh",
     "build:gyp": "node-gyp build",
     "build:ts": "tsc",
     "start": "ts-node example",

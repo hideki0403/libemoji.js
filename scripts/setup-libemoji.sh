@@ -1,5 +1,5 @@
 cd ./externals/libemoji
-git submodule update --init
+sh ./externals/skia/tools/install_dependencies.sh
 cmake .
 make
 cd ../../
