@@ -6,7 +6,7 @@ cmake .
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   make
 else
-  msbuild emoji.sln
+  msbuild.exe emoji.sln
 fi
 
 cd ../../
