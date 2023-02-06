@@ -56,8 +56,8 @@
   ],
   "scripts": {
   "install": "node ./scripts/skip-prebuild.js || prebuild-install --runtime napi",
-  "re-build": "node-gyp rebuild",
-  "prebuild": "prebuild --runtime napi --all --strip --verbose",
+  "rebuild": "node-gyp rebuild",
+  "pre-build": "prebuild --runtime napi --all --strip --verbose",
   "upload": "prebuild --runtime napi --upload ${GITHUB_TOKEN}",
   "setup:submodules": "git submodule update --init --recursive",
   "setup:native-configure": "node-gyp configure",
