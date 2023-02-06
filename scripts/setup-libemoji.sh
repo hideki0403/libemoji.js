@@ -5,6 +5,11 @@ sh ./externals/skia/tools/install_dependencies.sh
 echo build libemoji
 
 cmake .
-make
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  make
+else
+  msbuild.exe emoji.sln
+fi
 
 cd ../../
