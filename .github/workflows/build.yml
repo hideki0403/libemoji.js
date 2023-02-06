@@ -32,7 +32,7 @@ jobs:
         if: contains(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
-          sudo apt-get install git cmake g++ python2 libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
+          sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 
       - name: Install libs (Windows)
         if: contains(matrix.os, 'windows')
@@ -58,14 +58,6 @@ jobs:
         run: yarn run setup
       - if: steps.submodule_cache.outputs.cache-hit == 'true'
         run: yarn run setup:native-configure
-
-      - name: Build setup (Ubuntu)
-        if: contains(matrix.os, 'ubuntu')
-        run: sh ./scripts/setup-libemoji.sh
-
-      - name: Build setup (Windows)
-        if: contains(matrix.os, 'windows')
-        run: ./scripts/setup-libemoji.bat
 
       - run: yarn run build
       - run: yarn run pre-build
