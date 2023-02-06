@@ -1,3 +1,4 @@
 [submodule "externals/libemoji"]
 	path = externals/libemoji
 	url = https://github.com/oyakodon/libemoji
+  branch = develop
