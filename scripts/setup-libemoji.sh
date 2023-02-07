@@ -12,6 +12,8 @@ else
   msbuild.exe emoji.sln
 fi
 
+du -sh ./externals/*
+
 mkdir ./lib
 cp ./tmp/**/*.{lib,a} ./lib
 

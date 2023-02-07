@@ -7,14 +7,13 @@
   "author": "Yuzuki Aida <dev@nzws.me>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nzws/libemoji.js.git"
+    "url": "https://github.com/hideki0403/libemoji.js.git"
   },
   "binary": {
     "napi_versions": [
       8
     ]
   },
-  "prettier": "@nzws/prettier-config",
   "publishConfig": {
     "access": "public"
   },

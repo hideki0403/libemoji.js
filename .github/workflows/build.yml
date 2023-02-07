@@ -50,10 +50,6 @@ jobs:
         env:
           SKIP_BUILD: true
 
-      - name: Make symbolic link (Windows)
-        if: contains(matrix.os, 'windows')
-        run: ./scripts/make-symboliclink.bat
-
       - run: yarn run setup
       - run: yarn run build
       - run: yarn run pre-build
