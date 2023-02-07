@@ -12,14 +12,9 @@ else
   msbuild.exe emoji.sln
 fi
 
-du -sh ./externals/skia/*
-
 mkdir ./lib
 cp ./tmp/*.{lib,a} ./lib
 
-ls -lah ./
-ls -lah ./externals/skia
-ls -lah ./externals/skia/out/Static
 ls -lah ./tmp
 ls -lah ./lib
 
