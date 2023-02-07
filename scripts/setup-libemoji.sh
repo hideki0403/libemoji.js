@@ -12,9 +12,9 @@ else
   msbuild.exe emoji.sln
 fi
 
-ls --lah ./
-ls --lah ./tmp
-ls --lah ./lib
-ls --lah ./bin
+ls -lah ./
+ls -lah ./tmp
+ls -lah ./lib
+ls -lah ./bin
 
 cd ../../
