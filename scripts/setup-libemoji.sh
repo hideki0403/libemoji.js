@@ -13,6 +13,7 @@ else
 fi
 
 ls -lah ./
+ls -lah ./externals/skia/out/Static
 ls -lah ./tmp
 ls -lah ./lib
 ls -lah ./bin
