@@ -59,7 +59,7 @@
   "rebuild": "node-gyp rebuild",
   "pre-build": "prebuild --runtime napi --all --strip --verbose",
   "upload": "prebuild --runtime napi --upload ${GITHUB_TOKEN}",
-  "setup:submodules": "git submodule update --init --depth=1 --recurse-submodules --shallow-submodules",
+  "setup:submodules": "git submodule update --init --recursive --recommend-shallow --depth 1",
   "setup:native-configure": "node-gyp configure",
   "setup": "npm-run-all setup:*",
   "lint:prettier": "prettier --check .",
