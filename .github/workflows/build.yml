@@ -15,8 +15,8 @@ jobs:
       matrix:
         # version: [14, 16, 18]
         version: [18]
-        # os: [ubuntu-latest, windows-2019]
-        os: [windows-2019]
+        os: [ubuntu-latest, windows-2019]
+        # os: [windows-2019]
 
     steps:
       - uses: actions/checkout@v2.4.0
