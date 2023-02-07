@@ -50,7 +50,7 @@ jobs:
         env:
           SKIP_BUILD: true
 
-        run: yarn run setup
+      - run: yarn run setup
       - run: yarn run build
       - run: yarn run pre-build
       - run: yarn run upload
