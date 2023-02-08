@@ -19,7 +19,7 @@ jobs:
         # os: [windows-2019]
 
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
         with:
           python-version: '2.x'
@@ -43,7 +43,7 @@ jobs:
 
       - name: Setup msbuild (Windows)
         if: contains(matrix.os, 'windows')
-        uses: microsoft/setup-msbuild@v1.0.2
+        uses: microsoft/setup-msbuild@v1
 
       - name: Install deps
         run: yarn install --frozen-lockfile
@@ -52,6 +52,7 @@ jobs:
 
       - name: Check submodule hash
         run: echo echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
+      # run: echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
         id: submodule_hash
 
       - uses: actions/cache@v3
