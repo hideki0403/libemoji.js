@@ -51,7 +51,7 @@ jobs:
           SKIP_BUILD: true
 
       - name: Check submodule hash
-        run: echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
+      run: echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
         id: submodule_hash
 
       - run: yarn setup
@@ -75,5 +75,5 @@ jobs:
 
       - run: yarn run build
       - run: yarn run pre-build
-      - name: Upload prebuild binaly
-        run: prebuild --runtime napi --upload ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload prebuilt binaly
+        run: yarn run upload ${{ secrets.GITHUB_TOKEN }}
