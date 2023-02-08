@@ -75,6 +75,5 @@ jobs:
 
       - run: yarn run build
       - run: yarn run pre-build
-      - run: yarn run upload
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload prebuild binaly
+        run: prebuild --runtime napi --upload ${{ secrets.GITHUB_TOKEN }}
