@@ -1,10 +1,10 @@
 {
-  "name": "@nzws/libemoji.js",
+  "name": "@hideki0403/libemoji.js",
   "version": "0.1.0",
   "main": "dist/index.js",
   "license": "MIT",
   "description": "Unofficial nodejs wrapper for emoji-gen/libemoji",
-  "author": "Yuzuki Aida <dev@nzws.me>",
+  "author": "Yuzuki Aida <dev@nzws.me>, yukineko <dev@yukineko.me>",
   "repository": {
     "type": "git",
     "url": "https://github.com/hideki0403/libemoji.js.git"

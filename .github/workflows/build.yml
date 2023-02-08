@@ -54,21 +54,24 @@ jobs:
         run: echo echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
         id: submodule_hash
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: submodule_cache
         with:
           path: |
             externals/libemoji/lib
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
 
-      - if: steps.submodule_cache.outputs.cache-hit != 'true'
         run: yarn setup
 
-      - if: steps.submodule_cache.outputs.cache-hit == 'true'
-        run: yarn setup:native-configure
+      - run: yarn run build-lib
+        if: steps.submodule_cache.outputs.cache-hit != 'true'
 
-      - if: steps.submodule_cache.outputs.cache-hit != 'true'
-        run: yarn run build-lib
+      - uses: actions/cache/save@v3
+        if: steps.submodule_cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            externals/libemoji/lib
+          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
 
       - run: yarn run build
       - run: yarn run pre-build

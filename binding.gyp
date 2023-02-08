@@ -5,7 +5,7 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
-        "-L<(module_root_dir)/externals/libemoji/lib",
+        "-L<(module_root_dir)/externals/libemoji/lib/emoji",
         "-ldl",
         "-lfontconfig",
         "-lfreetype",
