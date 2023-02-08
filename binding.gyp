@@ -4,11 +4,19 @@
       ['OS != "win"', {
         "libs": [
           "-L<(module_root_dir)/externals/libemoji/lib",
-          "-lemoji"
+          "-lemoji",
+          "-ldl",
+          "-lfontconfig",
+          "-lfreetype",
+          "-lpthread"
         ],
       }],
       ['OS == "win"', {
-        "libs": ['<(module_root_dir)/externals/libemoji/lib/emoji'],
+        "libs": [
+          '<(module_root_dir)/externals/libemoji/lib/emoji',
+          '<(module_root_dir)/thirdparty/freetype',
+          '<(module_root_dir)/thirdparty/pthread',
+        ],
       }],
     ],
   },
@@ -19,6 +27,8 @@
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
         "<@(libs)",
+        "-lGL",
+        "-lGLU"
       ],
       "sources": [ "src/main.cpp" ],
       "include_dirs": [

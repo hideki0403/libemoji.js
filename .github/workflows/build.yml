@@ -29,13 +29,7 @@ jobs:
           node-version: ${{ matrix.version }}
           cache: 'yarn'
 
-      - name: Install libs (Ubuntu)
-        if: contains(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get update
-          sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
-
-      - name: Install libs (Windows)
+      - name: Install LLVM (Windows)
         if: contains(matrix.os, 'windows')
         uses: KyleMayes/install-llvm-action@v1.7.0
         with:
@@ -44,6 +38,18 @@ jobs:
       - name: Setup msbuild (Windows)
         if: contains(matrix.os, 'windows')
         uses: microsoft/setup-msbuild@v1
+
+      - name: Install libs (Windows)
+        if: contains(matrix.os, 'windows')
+        run: |
+          wget https://github.com/ubawurinna/freetype-windows-binaries/raw/master/release%20static/vs2015-2022/win64/freetype.lib -O ./thirdparty/freetype.lib
+          wget https://sourceware.org/pub/pthreads-win32/dll-latest/lib/x64/pthreadVC2.lib -O ./thirdparty/pthread.lib
+
+      - name: Install libs (Ubuntu)
+        if: contains(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get update
+          sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
 
       - name: Install deps
         run: yarn install --frozen-lockfile
