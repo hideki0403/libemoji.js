@@ -8,7 +8,9 @@
           "-ldl",
           "-lfontconfig",
           "-lfreetype",
-          "-lpthread"
+          "-lpthread",
+          "-lGL",
+          "-lGLU"
         ],
       }],
       ['OS == "win"', {
@@ -26,9 +28,7 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
-        "<@(libs)",
-        "-lGL",
-        "-lGLU"
+        "<@(libs)"
       ],
       "sources": [ "src/main.cpp" ],
       "include_dirs": [
