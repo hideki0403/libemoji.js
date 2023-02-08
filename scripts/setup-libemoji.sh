@@ -13,9 +13,10 @@ else
 fi
 
 mkdir ./lib
-cp ./tmp/*.{lib,a} ./lib
 
-ls -lah ./tmp
+cp ./tmp/*.{lib,a} ./lib
+cp ./tmp/**/*.{lib,a} ./lib
+
 ls -lah ./lib
 
 cd ../../

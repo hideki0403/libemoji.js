@@ -50,7 +50,26 @@ jobs:
         env:
           SKIP_BUILD: true
 
-      - run: yarn run setup
+      - name: Check submodule hash
+        run: echo echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
+        id: submodule_hash
+
+      - uses: actions/cache@v2
+        id: submodule_cache
+        with:
+          path: |
+            externals/libemoji/lib
+          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+
+      - if: steps.submodule_cache.outputs.cache-hit != 'true'
+        run: yarn setup
+
+      - if: steps.submodule_cache.outputs.cache-hit == 'true'
+        run: yarn setup:native-configure
+
+      - if: steps.submodule_cache.outputs.cache-hit != 'true'
+        run: yarn run build-lib
+
       - run: yarn run build
       - run: yarn run pre-build
       - run: yarn run upload
