@@ -39,13 +39,6 @@ jobs:
         if: contains(matrix.os, 'windows')
         uses: microsoft/setup-msbuild@v1
 
-      - name: Install libs (Windows)
-        if: contains(matrix.os, 'windows')
-        run: |
-          mkdir ./thirdparty
-          curl https://github.com/ubawurinna/freetype-windows-binaries/raw/master/release%20static/vs2015-2022/win64/freetype.lib -o ./thirdparty/freetype.lib
-          curl https://sourceware.org/pub/pthreads-win32/dll-latest/lib/x64/pthreadVC2.lib -o ./thirdparty/pthread.lib
-
       - name: Install libs (Ubuntu)
         if: contains(matrix.os, 'ubuntu')
         run: |
