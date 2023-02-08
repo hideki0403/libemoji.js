@@ -5,6 +5,7 @@
         "libs": [
           "-L<(module_root_dir)/externals/libemoji/lib",
           "-lemoji",
+          "-lskia",
           "-ldl",
           "-lfontconfig",
           "-lfreetype",
@@ -27,7 +28,7 @@
   },
   "targets": [
     {
-      "target_name": "libemoji",
+      "target_name": "emoji",
       "cflags!": [ "-fno-exceptions -MT" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
