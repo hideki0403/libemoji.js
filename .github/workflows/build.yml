@@ -61,7 +61,7 @@ jobs:
             externals/libemoji/lib
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
 
-        run: yarn setup
+      - run: yarn setup
 
       - run: yarn run build-lib
         if: steps.submodule_cache.outputs.cache-hit != 'true'
