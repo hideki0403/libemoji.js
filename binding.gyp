@@ -26,7 +26,7 @@
   "targets": [
     {
       "target_name": "libemoji",
-      "cflags!": [ "-fno-exceptions" ],
+      "cflags!": [ "-fno-exceptions -MT" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
         "<@(libs)"
