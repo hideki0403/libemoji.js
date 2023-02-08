@@ -16,6 +16,7 @@
       ['OS == "win"', {
         "libs": [
           '<(module_root_dir)/externals/libemoji/lib/emoji',
+          '<(module_root_dir)/thirdparty/fontconfig',
           '<(module_root_dir)/thirdparty/freetype',
           '<(module_root_dir)/thirdparty/pthread',
         ],
