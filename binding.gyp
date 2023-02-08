@@ -1,17 +1,24 @@
 {
+  "variables": {
+    "conditions": [
+      ['OS != "win"', {
+        "libs": [
+          "-L<(module_root_dir)/externals/libemoji/lib",
+          "-lemoji"
+        ],
+      }],
+      ['OS == "win"', {
+        "libs": ['<(module_root_dir)/externals/libemoji/lib/emoji'],
+      }],
+    ],
+  },
   "targets": [
     {
       "target_name": "libemoji",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
-        "<(module_root_dir)/externals/libemoji/lib/emoji",
-        "-ldl",
-        "-lfontconfig",
-        "-lfreetype",
-        "-lGL",
-        "-lGLU",
-        "-lpthread"
+        "<@(libs)",
       ],
       "sources": [ "src/main.cpp" ],
       "include_dirs": [
