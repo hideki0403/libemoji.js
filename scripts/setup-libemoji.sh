@@ -4,12 +4,12 @@ cd ./externals/libemoji
 sh ./externals/skia/tools/install_dependencies.sh
 echo build libemoji
 
-cmake . -DCMAKE_BUILD_TYPE=Release
+cmake .
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   make
 else
-  msbuild.exe emoji.sln
+  msbuild.exe emoji.sln /p:Configuration=Release
 fi
 
 mkdir ./lib
