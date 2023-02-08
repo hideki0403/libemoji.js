@@ -9,7 +9,7 @@ cmake .
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   make
 else
-  msbuild.exe emoji.sln /p:Configuration=Release
+  msbuild.exe emoji.sln -p:Configuration=Release
 fi
 
 mkdir ./lib
