@@ -40,7 +40,7 @@ jobs:
         if: contains(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
-          sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev -y
+          sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev libfreetype-dev -y
 
       - name: Install deps
         run: yarn install --frozen-lockfile
