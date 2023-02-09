@@ -5,13 +5,12 @@
         "libs": [
           "-L<(module_root_dir)/externals/libemoji/lib",
           "-lemoji",
-          "-lskia",
           "-ldl",
           "-lfontconfig",
           "-lfreetype",
-          "-lpthread",
           "-lGL",
-          "-lGLU"
+          "-lGLU",
+          "-lpthread"
         ],
       }],
       ['OS == "win"', {
