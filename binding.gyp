@@ -25,7 +25,6 @@
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "ldflags": [
-        "-static",
         "-static-libgcc",
         "-static-libstdc++"
       ],
