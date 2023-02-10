@@ -29,7 +29,7 @@
   "targets": [
     {
       "target_name": "emoji",
-      "cflags!": [ "-fno-exceptions -MT" ],
+      "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "libraries": [
         "<@(libs)"
