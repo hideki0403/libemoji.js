@@ -3,6 +3,7 @@
     "conditions": [
       ['OS != "win"', {
         "libs": [
+          "-Bstatic"
           "-L<(module_root_dir)/externals/libemoji/lib",
           "-lemoji",
           "-lskia",
@@ -11,7 +12,8 @@
           "-lfreetype",
           "-lpthread",
           "-lGL",
-          "-lGLU"
+          "-lGLU",
+          "-Bdynamic"
         ],
       }],
       ['OS == "win"', {
@@ -31,9 +33,6 @@
       "target_name": "emoji",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      'ldflags': [
-        '-Bstatic'
-      ],
       "libraries": [
         "<@(libs)"
       ],
