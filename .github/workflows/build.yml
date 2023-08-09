@@ -21,6 +21,10 @@ jobs:
       - name: Cleanup Diskspace (Ubuntu)
         if: contains(matrix.os, 'ubuntu')
         uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          swap-storage: false
+
 
       - uses: actions/setup-python@v4
         with:
