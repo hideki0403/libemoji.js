@@ -25,6 +25,13 @@ jobs:
           tool-cache: false
           swap-storage: false
 
+      - name: Cleanup Diskspace (Windows)
+        if: contains(matrix.os, 'windows')
+        shell: bash
+        run: |
+          rm -rf "C:\Android"
+          rm -rf "C:\Program Files (x86)\Android"
+          rm -rf "C:\Program Files (x86)\Epic Games"
 
       - uses: actions/setup-python@v4
         with:
