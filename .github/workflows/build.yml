@@ -97,6 +97,12 @@ jobs:
         env:
           WORKING_DIR: ${{ github.workspace }}
 
+      - name: Show disk state (Windows)
+        if: contains(matrix.os, 'windows')
+        shell: powershell
+        run: |
+          Get-PSDrive
+
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         with:
