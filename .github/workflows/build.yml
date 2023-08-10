@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           if [ -n "${USE_TAG}" ]; then
-            echo "HASH=${USE_TAG}" >> $GITHUB_OUTPUT
+            echo "HASH=-${USE_TAG}" >> $GITHUB_OUTPUT
           else
             echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
           fi
