@@ -9,15 +9,16 @@ on:
         type: string
 
 jobs:
-  ubuntu:
+  publish:
     timeout-minutes: 120
-    name: ubuntu-latest - Node.js ${{ matrix.version }}
-    runs-on: ubuntu-latest
+    name: ${{ matrix.os }} - Node.js ${{ matrix.version }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         # version: [14, 16, 18]
         version: [18]
+        os: [ubuntu-latest, windows-2019]
 
     steps:
       - uses: actions/checkout@v3
@@ -42,8 +43,8 @@ jobs:
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
           lookup-only: true
 
-      - name: Cleanup Diskspace
-        if: steps.submodule_cache.outputs.cache-hit != 'true'
+      - name: Cleanup Diskspace (Ubuntu)
+        if: contains(matrix.os, 'ubuntu') && steps.submodule_cache.outputs.cache-hit != 'true'
         uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: false
@@ -58,10 +59,21 @@ jobs:
           node-version: ${{ matrix.version }}
           cache: 'yarn'
 
+      - name: Install LLVM (Windows)
+        if: contains(matrix.os, 'windows')
+        uses: KyleMayes/install-llvm-action@v1.7.0
+        with:
+          version: '3'
+
+      - name: Setup msbuild (Windows)
+        if: contains(matrix.os, 'windows')
+        uses: microsoft/setup-msbuild@v1
+
       - name: Install ninja
         uses: seanmiddleditch/gha-setup-ninja@v3
 
-      - name: Install libs
+      - name: Install libs (Ubuntu)
+        if: contains(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
           sudo apt-get install git cmake g++ libfontconfig1-dev libx11-dev libxcomposite-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev libfreetype-dev -y
@@ -78,6 +90,12 @@ jobs:
         env:
           WORKING_DIR: ${{ github.workspace }}
 
+      - name: Show disk state (Windows)
+        if: contains(matrix.os, 'windows')
+        shell: powershell
+        run: |
+          Get-PSDrive
+
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         with:
@@ -99,112 +117,3 @@ jobs:
       - run: yarn run pre-build
       - name: Upload prebuilt binaly
         run: yarn run upload ${{ secrets.PREBUILD_TOKEN }}
-
-  windows:
-    timeout-minutes: 120
-    name: windows-latest - Node.js ${{ matrix.version }}
-    runs-on: windows-2019
-    strategy:
-      fail-fast: false
-      matrix:
-        # version: [14, 16, 18]
-        version: [18]
-
-    steps:
-      - name: Checkout
-        id: checkout
-        shell: bash
-        run: |
-          mkdir $WORKING_DIR
-          git clone ${{ github.repositoryUrl }} --depth 1 --branch ${{ github.ref }} --recursive $WORKING_DIR
-          echo "WORKING_DIR=$WORKING_DIR" >> $GITHUB_OUTPUT
-        env:
-          WORKING_DIR: C:/repo
-
-      - name: Check submodule hash
-        working-directory: ${{ steps.checkout.outputs.WORKING_DIR }}
-        shell: bash
-        run: |
-          if [ -n "${USE_TAG}" ]; then
-            echo "HASH=-${USE_TAG}" >> $GITHUB_OUTPUT
-          else
-            echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
-          fi
-        env:
-          USE_TAG: ${{ github.event.inputs.tags }}
-        id: submodule_hash
-
-      - name: Check cache exists
-        uses: actions/cache@v3
-        id: submodule_cache
-        with:
-          path: ${{ steps.checkout.outputs.WORKING_DIR }}/externals/libemoji/tmp
-          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
-          lookup-only: true
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.version }}
-          cache: 'yarn'
-
-      - name: Install LLVM
-        uses: KyleMayes/install-llvm-action@v1.7.0
-        with:
-          version: '3'
-
-      - name: Setup msbuild
-        uses: microsoft/setup-msbuild@v1
-
-      - name: Install ninja
-        uses: seanmiddleditch/gha-setup-ninja@v3
-
-      - name: Install deps
-        working-directory: ${{ steps.checkout.outputs.WORKING_DIR }}
-        run: yarn install --frozen-lockfile
-        env:
-          SKIP_BUILD: true
-
-      - run: yarn setup
-        working-directory: ${{ steps.checkout.outputs.WORKING_DIR }}
-
-      - run: yarn run build-skia
-        if: steps.submodule_cache.outputs.cache-hit != 'true'
-        working-directory: ${{ steps.checkout.outputs.WORKING_DIR }}
-        env:
-          WORKING_DIR: ${{ steps.checkout.outputs.WORKING_DIR }}
-
-      - name: Show disk state
-        shell: powershell
-        run: |
-          Get-PSDrive
-
-      - uses: actions/cache/save@v3
-        if: steps.submodule_cache.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.checkout.outputs.WORKING_DIR }}/externals/libemoji/tmp
-          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
-
-      - name: Restore cache
-        uses: actions/cache/restore@v3
-        if: steps.submodule_cache.outputs.cache-hit == 'true'
-        with:
-          path: ${{ steps.checkout.outputs.WORKING_DIR }}/externals/libemoji/tmp
-          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
-
-      - run: yarn run build-lib
-        env:
-          WORKING_DIR: ${{ steps.checkout.outputs.WORKING_DIR }}
-
-      - run: yarn run build
-        working-directory: ${{ steps.checkout.outputs.WORKING_DIR }}
-
-      - run: yarn run pre-build
-        working-directory: ${{ steps.checkout.outputs.WORKING_DIR }}
-
-      - name: Upload prebuilt binaly
-        run: yarn run upload ${{ secrets.PREBUILD_TOKEN }}
-        working-directory: ${{ steps.checkout.outputs.WORKING_DIR }}
