@@ -113,6 +113,7 @@ jobs:
     steps:
       - name: Checkout
         id: checkout
+        shell: bash
         run: |
           mkdir $WORKING_DIR
           git clone ${{ github.repositoryUrl }} --depth 1 --branch ${{ github.ref }} --recursive $WORKING_DIR
