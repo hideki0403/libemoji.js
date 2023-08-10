@@ -2,6 +2,11 @@ name: build
 
 on:
   workflow_dispatch:
+    inputs:
+      tags:
+        description: 'cache tag'
+        required: false
+        type: string
 
 jobs:
   publish:
@@ -21,7 +26,13 @@ jobs:
       - name: Check submodule hash
         shell: bash
         run: |
-          echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
+          if [ -n "${USE_TAG}" ]; then
+            echo "HASH=${USE_TAG}" >> $GITHUB_OUTPUT
+          else
+            echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
+          fi
+        env:
+          USE_TAG: ${{ github.event.inputs.tags }}
         id: submodule_hash
 
       - uses: actions/cache@v3
