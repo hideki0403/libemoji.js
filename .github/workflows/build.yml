@@ -27,11 +27,11 @@ jobs:
 
       - name: Cleanup Diskspace (Windows)
         if: contains(matrix.os, 'windows')
-        shell: bash
+        shell: powershell
         run: |
-          rm -rf "C:\Android"
-          rm -rf "C:\Program Files (x86)\Android"
-          rm -rf "C:\Program Files (x86)\Epic Games"
+          Remove-Item -Path "C:\Android" -Recurse -Force
+          Remove-Item -Path "C:\Program Files (x86)\Android" -Recurse -Force
+          Remove-Item -Path "C:\Program Files (x86)\Epic Games" -Recurse -Force
 
       - uses: actions/setup-python@v4
         with:
