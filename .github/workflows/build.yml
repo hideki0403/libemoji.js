@@ -21,19 +21,6 @@ jobs:
         os: [ubuntu-latest, windows-2019]
 
     steps:
-      - name: Create symbolic link (Windows)
-        if: contains(matrix.os, 'windows')
-        shell: bash
-        run: |
-          echo "export MSYS=winsymlinks:nativestrict" > ~/.bashrc
-          source ~/.bashrc
-
-          echo "Create symbolic link"
-          mkdir -p "C:/build"
-          ln -s "C:/build" "${{ github.workspace }}"
-          echo "successfully create symbolic link!" > "${{ github.workspace }}/check.txt"
-          cat "C:/build/check.txt"
-
       - uses: actions/checkout@v3
 
       - name: Check submodule hash
