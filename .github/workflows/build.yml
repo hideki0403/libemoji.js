@@ -54,8 +54,12 @@ jobs:
         if: contains(matrix.os, 'windows') && steps.submodule_cache.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          rm -rfv "C:\Android"
-          rm -rfv "C:\Program Files (x86)\Android"
+          echo "Cleanup before"
+          powershell.exe -c Get-PSDrive
+          rm -rf "C:\Android"
+          rm -rf "C:\Program Files (x86)\Android"
+          echo "Cleanup after"
+          powershell.exe -c Get-PSDrive
 
       - uses: actions/setup-python@v4
         with:
