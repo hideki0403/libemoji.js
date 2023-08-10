@@ -73,18 +73,24 @@ jobs:
         id: submodule_cache
         with:
           path: |
-            externals/libemoji/lib
+            externals/libemoji/tmp
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
 
-      - run: yarn run build-lib
+      - run: yarn run build-skia
         if: steps.submodule_cache.outputs.cache-hit != 'true'
+        env:
+          WORKING_DIR: ${{ github.workspace }}
 
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         with:
           path: |
-            externals/libemoji/lib
+            externals/libemoji/tmp
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+
+      - run: yarn run build-lib
+        env:
+          WORKING_DIR: ${{ github.workspace }}
 
       - run: yarn run build
       - run: yarn run pre-build

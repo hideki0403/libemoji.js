@@ -69,6 +69,7 @@
   "format": "npm-run-all -p format:*",
   "format:prettier": "prettier --write .",
   "format:cpp": "clang-format -i src/**.cpp",
+  "build-skia": "bash ./scripts/build-skia.sh",
   "build-lib": "bash ./scripts/setup-libemoji.sh",
   "build:gyp": "node-gyp build",
   "build:ts": "tsc",

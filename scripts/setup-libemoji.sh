@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cd ./externals/libemoji
-sh ./externals/skia/tools/install_dependencies.sh
+cd $WORKING_DIR/externals/libemoji
 echo build libemoji
 
 cmake . -DCMAKE_BUILD_TYPE=Release
