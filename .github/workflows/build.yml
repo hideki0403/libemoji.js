@@ -35,12 +35,13 @@ jobs:
           USE_TAG: ${{ github.event.inputs.tags }}
         id: submodule_hash
 
-      - uses: actions/cache@v3
+      - name: Check cache exists
+        uses: actions/cache@v3
         id: submodule_cache
         with:
-          path: |
-            externals/libemoji/tmp
+          path: externals/libemoji/tmp
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+          lookup-only: true
 
       - name: Cleanup Diskspace (Ubuntu)
         if: contains(matrix.os, 'ubuntu') && steps.submodule_cache.outputs.cache-hit != 'true'
@@ -99,8 +100,14 @@ jobs:
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         with:
-          path: |
-            externals/libemoji/tmp
+          path: externals/libemoji/tmp
+          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+
+      - name: Restore cache
+        uses: actions/cache/restore@v3
+        if: steps.submodule_cache.outputs.cache-hit == 'true'
+        with:
+          path: externals/libemoji/tmp
           key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
 
       - run: yarn run build-lib
