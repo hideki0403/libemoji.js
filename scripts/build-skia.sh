@@ -9,5 +9,5 @@ cmake . -DCMAKE_BUILD_TYPE=Release
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   make skia
 else
-  msbuild.exe skia.sln -p:Configuration=Release
+  msbuild.exe emoji.sln -target:skia -p:Configuration=Release
 fi
