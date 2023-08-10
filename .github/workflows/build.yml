@@ -18,15 +18,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Check submodule hash
+        shell: bash
+        run: |
+          echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
+        id: submodule_hash
+
+      - uses: actions/cache@v3
+        id: submodule_cache
+        with:
+          path: |
+            externals/libemoji/tmp
+          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+
       - name: Cleanup Diskspace (Ubuntu)
-        if: contains(matrix.os, 'ubuntu')
+        if: contains(matrix.os, 'ubuntu') && steps.submodule_cache.outputs.cache-hit != 'true'
         uses: jlumbroso/free-disk-space@main
         with:
           tool-cache: false
           swap-storage: false
 
       - name: Cleanup Diskspace (Windows)
-        if: contains(matrix.os, 'windows')
+        if: contains(matrix.os, 'windows') && steps.submodule_cache.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           Remove-Item -Path "C:\Android" -Recurse -Force
@@ -66,22 +79,7 @@ jobs:
         env:
           SKIP_BUILD: true
 
-      - name: Check submodule hash
-        run: |
-          echo "\"HASH=" >> libemoji-hash.txt
-          git submodule status externals/libemoji | awk '{print $1}' >> libemoji-hash.txt
-          echo "\"" >> libemoji-hash.txt
-          cat libemoji-hash.txt | sed -z 's/\n//g' >> $GITHUB_OUTPUT
-        id: submodule_hash
-
       - run: yarn setup
-
-      - uses: actions/cache@v3
-        id: submodule_cache
-        with:
-          path: |
-            externals/libemoji/tmp
-          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
 
       - run: yarn run build-skia
         if: steps.submodule_cache.outputs.cache-hit != 'true'
