@@ -103,7 +103,7 @@ jobs:
           WORKING_DIR: ${{ github.workspace }}
 
       - name: Show disk usage
-        run: diskusage --dir ${{ github.workspace }} -d 3
+        run: diskusage --dir "${{ github.workspace }}/externals/libemoji"  -d 3
 
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
