@@ -88,6 +88,9 @@ jobs:
 
       - run: yarn setup
 
+      - name: Show disk usage before build
+        run: diskusage --dir ${{ github.workspace }}
+
       - run: yarn run build-skia
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         env:
