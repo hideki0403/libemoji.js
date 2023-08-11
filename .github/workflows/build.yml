@@ -92,9 +92,6 @@ jobs:
 
       - run: yarn setup
 
-      - name: Show disk usage before build
-        run: diskusage --dir ${{ github.workspace }}
-
       - name: Show disk state (Windows)
         if: contains(matrix.os, 'windows')
         shell: powershell
@@ -106,7 +103,7 @@ jobs:
           WORKING_DIR: ${{ github.workspace }}
 
       - name: Show disk usage
-        run: diskusage --dir ${{ github.workspace }}
+        run: diskusage --dir ${{ github.workspace }}/externals/skia
 
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
