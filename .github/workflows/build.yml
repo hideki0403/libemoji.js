@@ -61,7 +61,7 @@ jobs:
 
       - uses: actions/setup-go@v4
         with:
-          go-version: '1.17.9'
+          go-version: 'stable'
 
       - name: Install debug tool
         run: go install github.com/chenquan/diskusage@latest
