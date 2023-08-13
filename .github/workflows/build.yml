@@ -89,6 +89,7 @@ jobs:
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         env:
           WORKING_DIR: ${{ github.workspace }}
+          CREATE_SYMBOLIC_LINK: ${{ contains(matrix.os, 'windows') }}
 
       - name: Show disk state (Windows)
         if: contains(matrix.os, 'windows')
@@ -111,6 +112,7 @@ jobs:
       - run: yarn run build-lib
         env:
           WORKING_DIR: ${{ github.workspace }}
+          SKIP_SKIA_BUILD: ${{ steps.submodule_cache.outputs.cache-hit }}
 
       - run: yarn run build
       - run: yarn run pre-build
