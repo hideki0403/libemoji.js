@@ -49,6 +49,7 @@ jobs:
         with:
           tool-cache: false
           swap-storage: false
+          large-packages: false
 
       - uses: actions/setup-python@v4
         with:
