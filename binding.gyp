@@ -4,15 +4,13 @@
       ['OS != "win"', {
         "libs": [
           "-L<(module_root_dir)/externals/libemoji/lib",
-          "-Wl,-Bdynamic,-lpthread,-ldl,-lGL,-lGLU,-Bstatic,-lemoji,-lskia"
+          "-Wl,-Bstatic,-lemoji,-lskia"
         ],
       }],
       ['OS == "win"', {
         "libs": [
           '<(module_root_dir)/externals/libemoji/lib/emoji',
-          '<(module_root_dir)/externals/libemoji/lib/skia',
-          '<(module_root_dir)/thirdparty/pthread',
-          '<(module_root_dir)/thirdparty/opengl32'
+          '<(module_root_dir)/externals/libemoji/lib/skia'
         ],
       }],
     ],
