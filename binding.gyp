@@ -10,7 +10,8 @@
       ['OS == "win"', {
         "libs": [
           '<(module_root_dir)/externals/libemoji/lib/emoji',
-          '<(module_root_dir)/externals/libemoji/lib/skia'
+          '<(module_root_dir)/externals/libemoji/lib/skia',
+          '<(module_root_dir)/third_party/win/opengl32'
         ],
       }],
     ],
@@ -22,7 +23,6 @@
       "cflags_cc!": [ "-fno-exceptions", "-no-pie" ],
       "ldflags": [
         "-static-libgcc",
-        "-static-libstdc++"
       ],
       "libraries": [
         "<@(libs)"
