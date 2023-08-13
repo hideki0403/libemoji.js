@@ -92,6 +92,11 @@ jobs:
           WORKING_DIR: ${{ github.workspace }}
           CREATE_SYMBOLIC_LINK: ${{ contains(matrix.os, 'windows') }}
 
+      - name: Search libs
+        if: steps.submodule_cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: find ./externals/libemoji -type f -regextype posix-egrep -regex ".+\.(a|lib)$"
+
       - name: Show disk state (Windows)
         if: contains(matrix.os, 'windows')
         shell: powershell
