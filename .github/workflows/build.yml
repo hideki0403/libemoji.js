@@ -27,9 +27,9 @@ jobs:
         shell: bash
         run: |
           if [ -n "${USE_TAG}" ]; then
-            echo "HASH=-${USE_TAG}" >> $GITHUB_OUTPUT
+            echo "HASH=${USE_TAG}" >> $GITHUB_OUTPUT
           else
-            echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}')" >> $GITHUB_OUTPUT
+            echo "HASH=$(git submodule status externals/libemoji | awk '{print $1}' | sed -e 's/-//g')" >> $GITHUB_OUTPUT
           fi
         env:
           USE_TAG: ${{ github.event.inputs.tags }}
