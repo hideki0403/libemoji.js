@@ -59,13 +59,6 @@ jobs:
           node-version: ${{ matrix.version }}
           cache: 'yarn'
 
-      - uses: actions/setup-go@v4
-        with:
-          go-version: 'stable'
-
-      - name: Install debug tool
-        run: go install github.com/chenquan/diskusage@latest
-
       - name: Install LLVM (Windows)
         if: contains(matrix.os, 'windows')
         uses: KyleMayes/install-llvm-action@v1.7.0
@@ -92,18 +85,15 @@ jobs:
 
       - run: yarn setup
 
-      - name: Show disk state (Windows)
-        if: contains(matrix.os, 'windows')
-        shell: powershell
-        run: Get-PSDrive
-
       - run: yarn run build-skia
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         env:
           WORKING_DIR: ${{ github.workspace }}
 
-      - name: Show disk usage
-        run: diskusage --dir "${{ github.workspace }}/externals/libemoji"  -d 3
+      - name: Show disk state (Windows)
+        if: contains(matrix.os, 'windows')
+        shell: powershell
+        run: Get-PSDrive
 
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
