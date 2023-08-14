@@ -19,8 +19,8 @@
   "targets": [
     {
       "target_name": "emoji",
-      "cflags!": [ "-fno-exceptions", "-no-pie" ],
-      "cflags_cc!": [ "-fno-exceptions", "-no-pie" ],
+      "cflags!": [ "-fno-exceptions" ],
+      "cflags_cc!": [ "-fno-exceptions" ],
       "ldflags": [ "-static-libgcc" ],
       "libraries": [
         "<@(libs)"
