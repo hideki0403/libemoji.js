@@ -4,7 +4,7 @@
       ['OS != "win"', {
         "libs": [
           "-L<(module_root_dir)/externals/libemoji/lib",
-          "-Wl,-Bstatic,-lemoji,-lskia"
+          "-Wl,-Bdynamic,-lpthread,-ldl,-lGL,-lGLU,-Bstatic,-lemoji,-lskia"
         ],
       }],
       ['OS == "win"', {
@@ -21,9 +21,6 @@
       "target_name": "emoji",
       "cflags!": [ "-fno-exceptions", "-no-pie" ],
       "cflags_cc!": [ "-fno-exceptions", "-no-pie" ],
-      "ldflags": [
-        "-static-libgcc",
-      ],
       "libraries": [
         "<@(libs)"
       ],
