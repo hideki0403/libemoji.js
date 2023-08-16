@@ -6,15 +6,10 @@ echo build libemoji
 cmake . -DCMAKE_BUILD_TYPE=Release
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  make
+  make emoji_combined
 else
-  msbuild.exe emoji.sln -p:Configuration=Release
+  msbuild.exe emoji.sln -target:emoji_combined -p:Configuration=Release
 fi
-
-mkdir ./lib
-
-cp ./tmp/*.{lib,a} ./lib
-cp ./tmp/**/*.{lib,a} ./lib
 
 ls -lah ./lib
 
