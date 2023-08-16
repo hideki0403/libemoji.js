@@ -126,3 +126,9 @@ jobs:
         with:
           name: ${{ runner.os }} - Node.js ${{ matrix.version }}
           path: build/**/*
+
+      - name: Upload lib
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }} - lib
+          path: externals/libemoji/lib/*
