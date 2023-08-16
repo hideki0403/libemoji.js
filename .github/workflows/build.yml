@@ -97,11 +97,6 @@ jobs:
         shell: bash
         run: find ./externals/libemoji -type f -regextype posix-egrep -regex ".+\.(a|lib)$"
 
-      - name: Show disk state (Windows)
-        if: contains(matrix.os, 'windows')
-        shell: powershell
-        run: Get-PSDrive
-
       - uses: actions/cache/save@v3
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         with:
