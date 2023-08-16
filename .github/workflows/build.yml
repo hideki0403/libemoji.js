@@ -40,7 +40,7 @@ jobs:
         id: submodule_cache
         with:
           path: externals/libemoji/tmp
-          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+          key: libemoji-${{ runner.os }}-${{ steps.submodule_hash.outputs.HASH }}
           lookup-only: true
 
       - name: Cleanup Diskspace (Ubuntu)
@@ -106,14 +106,14 @@ jobs:
         if: steps.submodule_cache.outputs.cache-hit != 'true'
         with:
           path: externals/libemoji/tmp
-          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+          key: libemoji-${{ runner.os }}-${{ steps.submodule_hash.outputs.HASH }}
 
       - name: Restore cache
         uses: actions/cache/restore@v3
         if: steps.submodule_cache.outputs.cache-hit == 'true'
         with:
           path: externals/libemoji/tmp
-          key: ${{ runner.os }}-libemoji-${{ steps.submodule_hash.outputs.HASH }}
+          key: libemoji-${{ runner.os }}-${{ steps.submodule_hash.outputs.HASH }}
 
       - run: yarn run build-lib
         env:
