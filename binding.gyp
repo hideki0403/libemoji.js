@@ -4,7 +4,7 @@
       ['OS != "win"', {
         "libs": [
           "-L<(module_root_dir)/externals/libemoji/lib",
-          "-Wl,-Bstatic,-lemoji,-lskia"
+          "-Wl,-Bdynamic,-lpthread,-ldl,-lfontconfig,-lfreetype,-Bstatic,-lemoji,-lskia"
         ],
       }],
       ['OS == "win"', {
