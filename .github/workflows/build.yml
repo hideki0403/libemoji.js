@@ -122,5 +122,12 @@ jobs:
 
       - run: yarn run build
       - run: yarn run pre-build
+
       - name: Upload prebuilt binaly
         run: yarn run upload ${{ secrets.PREBUILD_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ runner.os }} - Node.js ${{ matrix.version }}
+          path: build/**/*
