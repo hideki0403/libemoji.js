@@ -10,7 +10,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 else
   msbuild.exe emoji.sln -p:Configuration=Release
   mkdir ./lib
-  cp ./tmp/*.lib ./lib || true
+  cp ./tmp/**/*.lib ./lib || true
 fi
 
 ls -lah ./lib
